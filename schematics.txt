@@ -1,0 +1,81 @@
+### schematics
+ 
+Raspberry Pi Zero
+                ------------------
+                3.3V  ───────────────┐
+                GND   ───────────────┼───────────────┐
+                SDA   (GPIO2) ───────┼──────────┐    │
+                SCL   (GPIO3) ───────┼──────┐   │    │
+                                      │      │   │    │
+                                +-----------------------+
+                                |     TCA9548A          |
+                                |     I2C MUX (0x70)    |
+                                +-----------------------+
+                                  |  |  |  |  |  |
+                                  |  |  |  |  |  |
+                                Ch0 Ch1 Ch2 Ch3 Ch4 Ch5
+
+TCA Channel 0
+Repeat for channels 1-5
+SD0 ───────────────┬────────────── SDA (MCP0-A)
+                   └────────────── SDA (MCP0-B)
+
+SC0 ───────────────┬────────────── SCL (MCP0-A)
+                   └────────────── SCL (MCP0-B)
+
+3.3V ──────────────┬────────────── VDD (MCP0-A)
+                   └────────────── VDD (MCP0-B)
+
+GND ───────────────┬────────────── GND (MCP0-A)
+                   └────────────── GND (MCP0-B)
+
+
+Per Channel
+MCPx-A  (Address 0x20)
+A2 → GND
+A1 → GND
+A0 → GND
+
+MCPx-B  (Address 0x21)
+A2 → GND
+A1 → GND
+A0 → 3.3V
+
++5V (LED SUPPLY)
+   │
+   ├── Resistor ── LED ──┐
+   │                      │
+   ├── Resistor ── LED ──┤
+   │                      │
+   ├── Resistor ── LED ──┤
+   │                      │
+   └── (repeat 16x)       │
+                          │
+                    MCP GPIO Pin
+                          │
+                         GND (when ON)
+
+GPIO LOW = LED ON
+GPIO HIGH = LED OFF
+
+
+                 5V LED POWER SUPPLY (3–4A recommended)
+                          │
+                    +5V BUS (heavier gauge wire)
+                          │
+        ┌──────────┬──────────┬──────────┬──────────┬──────────┐
+        │          │          │          │          │          │
+      Ch0        Ch1        Ch2        Ch3        Ch4        Ch5
+   (Inject)    (Inject)    (Inject)    (Inject)    (Inject)    (Inject)
+
+
+Each injection point:
+* 100–470µF electrolytic
+* 0.1µF ceramic
+
+All grounds tied together:
+* Pi GND
+* TCA GND
+* MCP GND
+* LED PSU GND
+* Single common ground reference.
