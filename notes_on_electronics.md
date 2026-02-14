@@ -9,7 +9,7 @@
     * positive goes to 3.3 _negative_ goes to _ground_
     * for LEDs the _shorter_ lead goes to the _negative_ side and longer lead is positive
     * there will also be a notch on the negative side
-------------------------
+---
 ### considering _series wiring or daisy chaining_ since it seems simpler?
 * Maintains a constant current through all panels
 * if one panel fails, they all fail
