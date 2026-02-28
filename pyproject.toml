@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "pandas==3.0.1",
+    "pgadmin4==9.12",
     "python-dotenv==1.2.1",
     "requests==2.32.5",
 ]
