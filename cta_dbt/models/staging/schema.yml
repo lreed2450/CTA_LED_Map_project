@@ -1,27 +1,32 @@
-
 version: 2
 
 models:
   - name: stg_stops
     description: "load raw.src_stops_metadata to stage view"
     columns:
-      - name: STOP_ID
+      - name: stop_id
         description: "The primary key for this table"
-        data_type: bigint
-        constraints: 
+        data type: bigint
+        constraints:
           - type: primary_key
           - type: not_null
-        data_tests:
-          - unique
-          - not_null
+          - type: unique
+        
+
+
 
   - name: stg_directions
     description: "load raw.src_directions_metadata to stage view"
     columns:
-      - name: id
+      - name: index
+        description: "The primary key for this table"
         constraints:
           - type: primary_key
           - type: not_null
+          - type: unique
+        data_tests:
+          - unique
+          - not_null
     
 
 
@@ -29,6 +34,8 @@ models:
     description: "load raw.src_lapi_data to stage view"
     columns:
       - name: id
+        description: "The primary key for this table"
+        data type: bigint
         description: "The primary key for this table"
         constraints:
           - type: primary_key

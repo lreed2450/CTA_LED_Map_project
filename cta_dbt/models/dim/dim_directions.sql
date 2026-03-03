@@ -3,7 +3,7 @@ WITH stage AS (
 
 )
 
-SELECT index AS Id,
+SELECT index AS id,
 CASE WHEN train_line_name = 'brn' THEN 'Brown'
     WHEN train_line_name = 'g' THEN 'Green'
     WHEN train_line_name = 'org' THEN 'Orange'

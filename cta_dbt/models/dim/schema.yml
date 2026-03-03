@@ -18,8 +18,14 @@ models:
     description: "clean column names from stage"
     columns:
       - name: stop_id
+        description: "The primary key for this table"
+        data type: bigint
         constraints:
           - type: primary_key
           - type: not_null
+          - type: unique
+        data_tests:
+          - unique
+          - not_null
     
         
