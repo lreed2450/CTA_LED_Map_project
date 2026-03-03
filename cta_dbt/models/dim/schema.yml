@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: dim_directions
+    description: "clean index and train_line_name from stage"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        data_type: bigint
+        constraints: 
+          - type: primary_key
+          - type: not_null
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_stops
+    description: "clean column names from stage"
+    columns:
+      - name: stop_id
+        constraints:
+          - type: primary_key
+          - type: not_null
+    
+        

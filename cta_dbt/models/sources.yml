@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: cta_source
+    database: cta_data
+    schema: raw
+    tables:
+      - name: src_direction_metadata
+        description: raw direction metadata
+      - name: src_stop_metadata
+        description: raw stop metadata
+      - name: src_lapi_data
+        description: raw location api data
+        

@@ -15,13 +15,14 @@ This repository is for writing the code necessary to connect to the CTA Location
             * comes from lapi documentation
     * load tables to local postgres cta_data database
 2. transform data with dbt and automate pulling data from API with airflow
-    * **note:** WIP currently building out dbt
+    * **note:** WIP currently building out airflow automation
     * rename columns w AS
     * clean up dtypes w CAST
-    * generate surrogate keys
     * correctly map primary and foreign keys in schema .yml file
     * format datetime to `9999-12-31 23:59:59` format is currently `2026-03-01T12:35:27`
     * main dbt commands: dbt init, dbt run, dbt test
+        * initialize dbt directory with `dbt init <my_dir_name>` and follow prompts
+        * after set up run `dbt debug` if there are errors make changes to `profiles.yml`
 3. pull data from clean tables and build...
     * machine learning model to predict when trains will arrive at each stop based on the time of data
     * map lapi data to GPIO pins on rasberry pi 
@@ -41,6 +42,8 @@ project structure: TBD
 * direction metadata: found in Appendix C of location api docs
 * dbt docs: https://docs.getdbt.com/docs/build/documentation
 * dbt notes: https://publish.obsidian.md/datavidhya/Course+Notes/Fundamentals+of+Data+Engineering
+* airflow fundamentals: https://airflow.apache.org/docs/apache-airflow/stable/tutorial/fundamentals.html
+* airflow example pipeline: https://airflow.apache.org/docs/apache-airflow/stable/tutorial/pipeline.html
 
 * installing postgresql on linux mint with pgadmin: https://www.tecmint.com/install-postgresql-with-pgadmin4-on-linux-mint/
 

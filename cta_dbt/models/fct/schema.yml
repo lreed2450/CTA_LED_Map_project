@@ -1,0 +1,16 @@
+
+version: 2
+
+models:
+  - name: fct_lapi_data
+    description: "map ids, final data cleaning"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        data_type: bigint
+        constraints: 
+          - type: primary_key
+          - type: not_null
+        data_tests:
+          - unique
+          - not_null
