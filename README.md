@@ -7,16 +7,18 @@ This repository is for writing the code necessary to connect to the CTA Location
 ### high level project flow
 
 overall orchestrator: airflow
-1. run `get_half_trns_lapi_call()`
-2. delete all rows from 1 of 2 temp half lapi data table
-3. write df to 2 of 3 raw tables in local postgres cta_data databse
-     * tables:  _all_ src lapi data, temp first half lapi, temp second half lapi
-4. run dbt
-5. pull _all_ fresh data from 1 of 2 temp lapi tables
-6. map temp data to GPIO pins and LED lights
-7. wait ~2 minutes
-8. run 1-6 again on second half of lapi data writing to other temp table
-9. repeat 7-8
+1. run `first_half_df = get_half_trns_lapi_call(is_first_half_rt_nms=True)` to pull JSON data from cta locations api
+2. delete all rows from 1 of 2 raw temp half lapi data tables depending on `get_half_trns_lapi_call()` paramter
+3. write JSON data transformed as df to raw src lapi table and 1 of 2 raw half temp lapi tables in local postgres cta_data databse
+     * tables:  _all_ lapi data, temp first half lapi, temp second half lapi
+4. run dbt to stage and clean data
+5. push clean data to all lapi table and temp half lapi table in dev schema
+6. pull _all_ fresh data from 1 of 2 cleaned dev temp lapi tables
+    * the same temp table written to in step 5
+7. map temp data to GPIO pins and LED lights
+8. wait ~2 minutes
+9. run 1-6 again on second half of lapi data deleting and writing to other temp table
+10. repeat 7-8
 
 ---
 
@@ -36,7 +38,7 @@ overall orchestrator: airflow
 
         * direction metadata: `train_line_name`, `train_direction_id`, `train_direction_name`
         * found in Appendix C of location api docs
-    * load tables to local postgres cta_data database
+    * load tables to local postgres cta_data database in raw schema
 2. transform data with dbt and automate pulling data from API with airflow
 
     * **note:** WIP currently building out airflow automation
@@ -71,8 +73,8 @@ overall orchestrator: airflow
     * problem: keys are mapped in `schema.yml` but don't show up mapped as keys when connected to database
     * temp fix: (WIP) create index during dbt
 3. dbt test fails for stg_stops
-    * problem: tests fial because column `stop_id` doesn't exist
-    * temp fix: ... delete tests... or ignore errors
+    * problem: tests fail because column `stop_id` doesn't exist
+    * temp fix:
 
 ---
 ### useful documentation:
